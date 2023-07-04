@@ -24,7 +24,7 @@ from django.shortcuts import render
 
 # Content -> Payload da Resposta
 # headers: Cabeçalhos HTTP
-# status_code: Código de status HTT
+# status_code: Código de status HTTP
 
 
 
