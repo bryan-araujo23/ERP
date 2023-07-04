@@ -5,6 +5,7 @@
 
 - Python 
 - Django
+- Html e CSS
 - Bootstrap
 - PostgreSQL
 
