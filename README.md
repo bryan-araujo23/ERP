@@ -1,5 +1,8 @@
 # ERP
- Sistema integrado de gestão empresarial
+- Sistema Integrado De Gestão Empresarial
+
+- Linguagens utilizadas:
+
 - Python 
 - Django
 - Bootstrap
