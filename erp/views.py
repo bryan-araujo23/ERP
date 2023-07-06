@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 #  Camada view:
 #  Prover o roteamento de rotas,
 #  Processar Requisições HTTP,
@@ -18,13 +16,13 @@ from django.shortcuts import render
 # FILES  ->   Contém arquivos, caso algum tenha sido enviado.
 
 
-# Objeto HttpResponse
 
-# Atributos:
+from django.http import HttpRequest
+from django.shortcuts import render
 
-# Content -> Payload da Resposta
-# headers: Cabeçalhos HTTP
-# status_code: Código de status HTTP
+def home(requisicao: HttpRequest):  # pycharm não entende o que é a requisição, seu tipo primitivo. Por isso usamos type hint
+    if requisicao.method == 'GET':  # Vamos verificar qual método http, dependendo do método, teremos um tipo de processamento
+        return render(requisicao, template_name='erp/index.html')
 
 
 
