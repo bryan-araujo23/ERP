@@ -50,3 +50,31 @@ def lista_funcionarios(requisicao: HttpRequest):
         funcionarios = Funcionario.objects.all()
 
         return render(requisicao, template_name='erp/funcionarios/list.html',  context={"funcionarios": funcionarios})
+
+def busca_funcionario_por_id(requisicao: HttpRequest, pk: int):    # 1
+    if requisicao.method == 'GET':
+        try:
+            funcionario = Funcionario.objects.get(pk=pk)
+
+        except Funcionario.DoesNotExist:
+            funcionario = None
+
+        return render(requisicao, template_name='erp/funcionarios/detalhe.html', context={"funcionario": funcionario})
+
+    
+def atualiza_funcionario(requisicao: HttpRequest, pk: int):
+    if requisicao.method == 'GET':
+        funcionario = Funcionario.objects.get(pk=pk)
+        form = FuncionarioForm(instance=funcionario)
+
+        return render(requisicao, template_name='erp/funcionarios/atualiza.html', context={"form": form})
+
+    elif requisicao.method == 'POST':
+        funcionario = Funcionario.objects.get(pk=pk)
+        form = FuncionarioForm(requisicao.POST, instance=funcionario)
+         # fomulario atualizado com a chave cadastrada anteriormente
+
+        if form.is_valid():
+            form.save()
+
+            return HttpResponseRedirect(redirect_to=f'/funcionarios/detalhe/{pk}') # retornou para url detalhe
