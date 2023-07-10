@@ -41,3 +41,12 @@ def cria_funcionario(requisicao: HttpRequest):
             funcionario.save()
 
             return HttpResponseRedirect(redirect_to='/') # barra quer dizer que voltamos para raiz da app
+
+
+
+
+def lista_funcionarios(requisicao: HttpRequest):
+    if requisicao.method == 'GET':
+        funcionarios = Funcionario.objects.all()
+
+        return render(requisicao, template_name='erp/funcionarios/list.html',  context={"funcionarios": funcionarios})
