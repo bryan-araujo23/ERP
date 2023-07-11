@@ -1,19 +1,15 @@
-#  Camada view:
-#  Prover o roteamento de rotas,
-#  Processar Requisições HTTP,
-#  Aplicar as regras de negócio definidas para cada view
-#  Formular Respostas HTTP, Recepcionar requisições http, Processa - lás e responde -  las
-
 from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render
-from erp.forms import FuncionarioForm
-from .models import Funcionario
+from django.urls import reverse, reverse_lazy
+from django.views.generic import TemplateView, CreateView
+
+from erp.forms import FuncionarioForm, ProdutoForm
+from .models import Funcionario, Produto
 
 
+class HomeView(TemplateView):
+    template_name = 'erp/index.html'
 
-def home(requisicao: HttpRequest):  # pycharm não entende o que é a requisição, seu tipo primitivo. Por isso usamos type hint
-    if requisicao.method == 'GET':  # Vamos verificar qual método http, dependendo do método, teremos um tipo de processamento
-        return render(requisicao, template_name='erp/index.html')
 
 
 def cria_funcionario(requisicao: HttpRequest):
@@ -78,3 +74,11 @@ def atualiza_funcionario(requisicao: HttpRequest, pk: int):
             form.save()
 
             return HttpResponseRedirect(redirect_to=f'/funcionarios/detalhe/{pk}') # retornou para url detalhe
+
+
+class ProdutoCreateView(CreateView):
+    template_name = 'erp/produtos/novo.html'
+    model = Produto
+    form_class = ProdutoForm
+    success_url = reverse_lazy('erp:home')
+#            nome do app em urls.py:nome da view
