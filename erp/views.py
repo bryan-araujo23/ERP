@@ -1,8 +1,7 @@
-from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse, reverse_lazy
-from django.views.generic import TemplateView, CreateView
-
+from django.http import HttpRequest, HttpResponseRedirect
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView
 from erp.forms import FuncionarioForm, ProdutoForm
 from .models import Funcionario, Produto
 
@@ -82,3 +81,16 @@ class ProdutoCreateView(CreateView):
     form_class = ProdutoForm
     success_url = reverse_lazy('erp:home')
 #            nome do app em urls.py:nome da view
+
+
+class ProdutoListView(ListView):
+    template_name = 'erp/produtos/list.html'
+    model = Produto
+    context_object_name = 'produtos'
+
+
+class ProdutoUpdateView(UpdateView):
+    model = Produto
+    template_name = 'erp/produtos/atualiza.html'
+    form_class = ProdutoForm
+    success_url = reverse_lazy('erp:lista_produtos')
