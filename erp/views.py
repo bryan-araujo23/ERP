@@ -163,3 +163,16 @@ class VendaUpdateView(UpdateView):
     template_name = 'erp/vendas/atualiza.html'
     fields = '__all__'
     success_url = reverse_lazy('erp:lista_vendas')
+
+class VendaDeleteView(DeleteView):
+    model = Venda
+    template_name = 'erp/vendas/deleta.html'
+    context_object_name = 'venda'
+    success_url = reverse_lazy('erp:lista_vendas')
+
+    def get_object(self, queryset=None):
+        try:
+            return super().get_object(queryset)
+
+        except Http404:
+            return None
