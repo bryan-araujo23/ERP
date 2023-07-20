@@ -82,8 +82,8 @@ class ProdutoCreateView(CreateView):
 
 
 class ProdutoListView(ListView):
-    template_name = 'erp/produtos/lista.html'
     model = Produto
+    template_name = 'erp/produtos/list.html'
     context_object_name = 'produtos' # objeto que será passado para o template
 
 
