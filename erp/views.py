@@ -2,9 +2,23 @@ from django.shortcuts import render
 from django.http import HttpRequest, HttpResponseRedirect, Http404
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DetailView, DeleteView
-
 from erp.forms import FuncionarioForm, ProdutoForm
 from .models import Funcionario, Produto, Venda
+
+from django.contrib.auth.views import LoginView, LogoutView
+
+class ErpLoginView(LoginView):             # antiPenúltima clase para ser criada, pagina inicial da aplicação
+    template_name = 'erp/login.html'       # Home página principal da parte privada de quem tem acesso
+    success_url = reverse_lazy('erp:dashboard')
+    redirect_authenticated_user = True     # Usuários que estão autenticado serão redirirecionado a success_url
+
+class ErpLogoutView(LogoutView):
+    template_name = 'erp/logout.html'
+
+
+class DashboardView(TemplateView):      # penúltima clase para ser criada, vá para settings.py e crie 2 const: LOGIN_URL e LOGIN_REDIRECT_URL
+    template_name = 'erp/dashboard.html'
+
 
 class HomeView(TemplateView):
     template_name = 'erp/index.html'
